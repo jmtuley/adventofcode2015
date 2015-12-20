@@ -3,14 +3,14 @@ use std::io::prelude::*;
 
 fn main() {
     let stdin = io::stdin();
-    let mut total = 0;
-    for line in stdin.lock().lines() {
-        let l = line.unwrap();
-        let split: Vec<i32> = l.split('x').map(|s| s.parse::<i32>().unwrap()).collect();
-        total += sqfootage(split[0], split[1], split[2]);
-    }
+    let total: i32 = stdin.lock().lines().map(|l| l.unwrap()).map(|l| calc(l)).fold(0, |sum, a| sum + a);
 
     println!("Total is {} square feet.", total)
+}
+
+fn calc(l: String) -> i32 {
+    let split: Vec<i32> = l.split('x').map(|s| s.parse::<i32>().unwrap()).collect();
+    sqfootage(split[0], split[1], split[2])
 }
 
 fn sqfootage(x:i32, y:i32, z:i32) -> i32 {
